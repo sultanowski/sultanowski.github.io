@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import Navigation from "../components/Navigation.astro";
+import "@fontsource-variable/inter-tight";
+import "@fontsource-variable/jetbrains-mono";
 ---
 
 <!doctype html>
@@ -23,5 +25,13 @@ import Navigation from "../components/Navigation.astro";
     html,
     body {
         @apply m-0 w-full h-full bg-blue-600;
+    }
+
+    body {
+        font-family: "Inter Tight Variable", sans-serif;
+    }
+
+    .font-mono {
+        font-family: "JetBrains Mono Variable", monospace !important;
     }
 </style>
