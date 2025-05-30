@@ -1,0 +1,147 @@
+---
+const projects = [
+    {
+        id: 1,
+        name: "Przedszkole Calineczka",
+        slug: "/project/przedszkole-calineczka",
+        targetURL: "https://edukacjajutra.eu/przedszkole-calineczka-gdansk/",
+        excerpt:
+            "Projekt w kolaboracji z GravityOFF. Moja rola: Utworzenie projektu graficznego dla przedszkola Calineczka w Gdańsku.",
+        thumbnailImage: "src/assets/projects/1/thumbnail.jpeg",
+        toolsUsed: ["Figma"],
+        role: "Design",
+        year: 2022,
+        isWIP: false,
+    },
+    {
+        id: 2,
+        name: "Piryt Nieruchomości",
+        slug: "/project/piryt-nieruchomosci",
+        targetURL: "https://pirytnieruchomosci.pl/",
+        excerpt:
+            "Projekt graficzny strony internetowej został przeze mnie rozbudowany i dostosowany do potrzeb klienta. Wdrożenie zostało zrealizowane przy użyciu Webflow.",
+        thumbnailImage: "src/assets/projects/2/thumbnail.jpeg",
+        toolsUsed: ["Figma", "Webflow", "Make/Integromat", "EstiCRM", "API"],
+        role: "Development",
+        year: 2024,
+        isWIP: false,
+    },
+    {
+        id: 3,
+        name: "Portfolio",
+        slug: "/project/portfolio",
+        targetURL: "https://sultanowski.com",
+        excerpt: "Showcase moich prac i umiejętności.",
+        thumbnailImage: "src/assets/projects/3/thumbnail.jpeg",
+        toolsUsed: ["Figma", "AstroJS", "Swiper", "TailwindCSS"],
+        role: "Design / Development",
+        year: 2025,
+        isWIP: true,
+    },
+    {
+        id: 4,
+        name: "No-Code Poland",
+        slug: "/project/nocodepoland",
+        targetURL: "https://nocodepoland.com/",
+        excerpt:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl eget aliquam aliquet, nisl nisl aliquet nisl, eget aliquam nisl nisl eget aliquam.",
+        thumbnailImage: "src/assets/projects/4/thumbnail.jpeg",
+        toolsUsed: ["Figma", "Webflow", "MailerLite"],
+        role: "Co-Founder / Design / Development",
+        year: 2024,
+        isWIP: false,
+    },
+];
+---
+
+<div class="flex flex-col xl:flex-row items-end justify-between gap-8">
+    <div class="swiper main xl:order-2 !m-0 xl:!overflow-visible">
+        <div
+            class="swiper-wrapper w-full xl:max-w-[40rem] max-h-[16rem] md:max-h-[25rem]"
+        >
+            {
+                projects.map((project) => (
+                    <div class="swiper-slide">
+                        <a href={project.targetURL}>
+                            <img src={project.thumbnailImage} />
+                        </a>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+    <div class="swiper meta xl:order-1 !m-0 w-full xl:max-w-[40rem]">
+        <div class="swiper-wrapper">
+            {
+                projects.map((project) => (
+                    <div class="swiper-slide !flex flex-col gap-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex gap-2">
+                                <p class="text-xl font-bold text-blue-600">
+                                    {project.name} ({project.year})
+                                </p>
+                                {project.isWIP && (
+                                    <span class="font-mono bg-orange-500 text-orange-100 p-2 text-xs">
+                                        WIP!
+                                    </span>
+                                )}
+                            </div>
+                            <p class="text-blue-600">{project.role}</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            {project.toolsUsed &&
+                                project.toolsUsed.map((tool) => (
+                                    <p class="btn-sm">{tool}</p>
+                                ))}
+                        </div>
+                        <p class="text-blue-600">{project.excerpt}</p>
+                    </div>
+                ))
+            }
+        </div>
+        <div class="flex justify-between mt-4">
+            <a href="#" class="swiper-button-prev btn-sm">&#60; prev</a>
+            <a href="#" class="swiper-button-next btn-sm">next &#62;</a>
+        </div>
+    </div>
+</div>
+
+<style scoped>
+    @reference '../styles/global.css';
+    .btn-sm {
+        @apply bg-blue-600 text-white px-2 py-1 w-fit font-mono text-xs;
+    }
+</style>
+
+<script>
+    import Swiper from "swiper";
+    import { Navigation, EffectFade } from "swiper/modules";
+    import "swiper/css";
+
+    const main = new Swiper(".swiper.main", {
+        modules: [Navigation],
+        direction: "vertical",
+        allowTouchMove: false,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+
+    const meta = new Swiper(".swiper.meta", {
+        modules: [Navigation, EffectFade],
+        slidesPerView: 1,
+        effect: "fade",
+        speed: 500,
+        fadeEffect: {
+            crossFade: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+
+    main.controller.control = meta;
+    meta.controller.control = main;
+</script>

@@ -1,18 +1,21 @@
 {
-  "name": "sultanowski.github.io",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "portfolio",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "astro": "astro"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "astro": "^5.5.5"
+    "@tailwindcss/vite": "^4.0.15",
+    "astro": "^5.5.4",
+    "swiper": "^11.2.8",
+    "tailwindcss": "^4.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "typescript": "^5.8.3"
   }
 }
