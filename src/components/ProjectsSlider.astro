@@ -1,5 +1,18 @@
 ---
-const projects = [
+interface Project {
+    id: number;
+    name: string;
+    slug: string;
+    targetURL: string;
+    excerpt: string;
+    thumbnailImage: string;
+    toolsUsed: string[];
+    role: string;
+    year: number;
+    isWIP: boolean;
+}
+
+const projects: Project[] = [
     {
         id: 1,
         name: "Przedszkole Calineczka",
@@ -44,7 +57,7 @@ const projects = [
         slug: "/project/nocodepoland",
         targetURL: "https://nocodepoland.com/",
         excerpt:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl eget aliquam aliquet, nisl nisl aliquet nisl, eget aliquam nisl nisl eget aliquam.",
+            "Zaprojektowałem logo No-Code Poland, które jest wykorzystywane na stronie internetowej oraz w materialach promocyjnych.",
         thumbnailImage: "src/assets/projects/4/thumbnail.jpeg",
         toolsUsed: ["Figma", "Webflow", "MailerLite"],
         role: "Co-Founder / Design / Development",
@@ -111,12 +124,23 @@ const projects = [
     .btn-sm {
         @apply bg-blue-600 text-white px-2 py-1 w-fit font-mono text-xs;
     }
+    .swiper-button-next,
+    .swiper-button-prev {
+        @apply relative m-0 right-0 left-0 h-auto;
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        display: none;
+    }
 </style>
 
 <script>
     import Swiper from "swiper";
     import { Navigation, EffectFade } from "swiper/modules";
     import "swiper/css";
+    import "swiper/css/navigation";
+    import "swiper/css/effect-fade";
 
     const main = new Swiper(".swiper.main", {
         modules: [Navigation],
@@ -142,6 +166,15 @@ const projects = [
         },
     });
 
-    main.controller.control = meta;
-    meta.controller.control = main;
+    main.on('init', function () {
+        main.controller.control = meta;
+    });
+
+    meta.on('init', function () {
+        meta.controller.control = main;
+    });
+
+    // Initialize both swipers
+    main.init();
+    meta.init();
 </script>
