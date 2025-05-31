@@ -20,7 +20,7 @@ const projects: Project[] = [
         targetURL: "https://edukacjajutra.eu/przedszkole-calineczka-gdansk/",
         excerpt:
             "Projekt w kolaboracji z GravityOFF. Moja rola: Utworzenie projektu graficznego dla przedszkola Calineczka w Gdańsku.",
-        thumbnailImage: "src/assets/projects/1/thumbnail.jpeg",
+        thumbnailImage: "/assets/projects/1/thumbnail.jpeg",
         toolsUsed: ["Figma"],
         role: "Design",
         year: 2022,
@@ -33,7 +33,7 @@ const projects: Project[] = [
         targetURL: "https://pirytnieruchomosci.pl/",
         excerpt:
             "Projekt graficzny strony internetowej został przeze mnie rozbudowany i dostosowany do potrzeb klienta. Wdrożenie zostało zrealizowane przy użyciu Webflow.",
-        thumbnailImage: "src/assets/projects/2/thumbnail.jpeg",
+        thumbnailImage: "/assets/projects/2/thumbnail.jpeg",
         toolsUsed: ["Figma", "Webflow", "Make/Integromat", "EstiCRM", "API"],
         role: "Development",
         year: 2024,
@@ -45,7 +45,7 @@ const projects: Project[] = [
         slug: "/project/portfolio",
         targetURL: "https://sultanowski.com",
         excerpt: "Showcase moich prac i umiejętności.",
-        thumbnailImage: "src/assets/projects/3/thumbnail.jpeg",
+        thumbnailImage: "/assets/projects/3/thumbnail.jpeg",
         toolsUsed: ["Figma", "AstroJS", "Swiper", "TailwindCSS"],
         role: "Design / Development",
         year: 2025,
@@ -58,7 +58,7 @@ const projects: Project[] = [
         targetURL: "https://nocodepoland.com/",
         excerpt:
             "Zaprojektowałem logo No-Code Poland, które jest wykorzystywane na stronie internetowej oraz w materialach promocyjnych.",
-        thumbnailImage: "src/assets/projects/4/thumbnail.jpeg",
+        thumbnailImage: "/assets/projects/4/thumbnail.jpeg",
         toolsUsed: ["Figma", "Webflow", "MailerLite"],
         role: "Co-Founder / Design / Development",
         year: 2024,
@@ -166,11 +166,11 @@ const projects: Project[] = [
         },
     });
 
-    main.on('init', function () {
+    main.on("init", function () {
         main.controller.control = meta;
     });
 
-    meta.on('init', function () {
+    meta.on("init", function () {
         meta.controller.control = main;
     });
 
