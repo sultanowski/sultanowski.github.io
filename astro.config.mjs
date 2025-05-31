@@ -6,6 +6,4 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: "https://sultanowski.github.io",
-  base: "sultanowski",
 });
