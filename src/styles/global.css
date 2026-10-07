@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@plugin "fluid-tailwindcss" {
+  minviewport: 320;
+  maxviewport: 1920;
+}
+
+@theme {
+  --bg-color: #f7f9ff;
+
+  --font-inter: "Inter", sans-serif;
+  --font-intertight: "Inter Tight", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-color: #0044ff;
+
+  --animate-marquee: marquee 60s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100vw);
+    }
+  }
+}
+
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+body {
+  @apply font-inter bg-blue-100 text-(--font-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-intertight;
+}
+
+.fluid-container {
+  @apply w-full max-w-[1920px] mx-auto fl-px-4/12;
+}

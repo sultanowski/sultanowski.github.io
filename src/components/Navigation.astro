@@ -1,0 +1,48 @@
+---
+import LogoEmblem from '../assets/logo-emblem.svg';
+---
+
+<header class="fixed top-0 z-[9999] w-full">
+  <div class="absolute top-0 bg-gradient-to-b from-white to-transparent w-full fl-h-32/48 -z-99 pointer-events-none" />
+  <div class="fluid-container flex items-center justify-between fl-h-16/32">
+    <div class="w-24 md:w-80">
+      <a href="/" class="flex items-center gap-4 text-blue-800 hover:opacity-90 transition-opacity">
+        <LogoEmblem width={40} height={40} />
+        <div class="hidden md:flex flex-col text-blue-800">
+          <span class="font-semibold">Dariusz Sułtanowski</span>
+          <span class="text-xs">Design & Development</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="hidden w-full flex items-center justify-between">
+      <ul class="flex gap-6 list-none m-0 p-0">
+        <li>
+          <a href="#" class="hover:text-blue-600 transition-colors">Link 1</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-blue-600 transition-colors">Link 2</a>
+        </li>
+        <li>
+          <a href="#" class="hover:text-blue-600 transition-colors">Link 3</a>
+        </li>
+      </ul>
+      <ul class="flex gap-6 list-none m-0 p-0">
+        <li>
+          <button
+            type="button"
+            class="font-mono hero-prev-btn-mobile px-3 py-1.5 border border-blue-600 text-blue-600 text-xs font-medium hover:bg-blue-600 hover:text-white transition-colors cursor-pointer"
+            aria-label="Poprzedni projekt"
+          >
+            Button 
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style scoped>
+  @reference "../styles/global.css";
+  a { @apply no-underline text-blue-800; }
+</style>
