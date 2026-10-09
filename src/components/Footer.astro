@@ -1,5 +1,72 @@
-<footer class="p-[2rem] text-white">
-    &copy; 2025 Dariusz Sułtanowski | Made with <a href="https://astro.build/"
-        >Astro</a
-    >
+---
+import LogoEmblem from '../assets/logo-emblem.svg';
+
+import data from '../data/data.ts';
+---
+
+<footer class="bg-white">
+  <div class="fluid-container mx-auto fl-py-12/24 fl-px-4/0 flex flex-col md:flex-row gap-12 items-start justify-between">
+    <div>
+      <a href="/" class="flex items-center gap-4 text-blue-800 hover:opacity-90 transition-opacity fl-mb-12/24">
+        <LogoEmblem width={48} height={48} />
+        <div class="flex flex-col text-blue-800">
+          <span class="text-lg font-semibold">Dariusz Sułtanowski</span>
+          <span class="text-sm">Design & Development</span>
+        </div>
+      </a>
+      <div class="flex flex-col gap-2 font-mono text-blue-800">
+        <span>t: <a href="tel:+48792300594" class="underline" aria-label="Zadzwoń do mnie! (+48 792 300 594)">+48 792 300 594</a></span>
+        <span>e: <a href="mailto:d@sultanowski.com" class="underline" aria-label="Napisz do mnie! (d@sultanowski.com)">d@sultanowski.com</a></span>
+      </div>
+      <div class="flex gap-4 mt-8">
+        { 
+          data.navigation.social.map((media) => (
+            <a href={media.url} target="_blank" class="w-12 h-12 bg-blue-600 hover:bg-blue-800 text-white flex items-center justify-center font-mono" aria-label={media.label}>{media.shortLabel}</a>
+          ))
+        }
+      </div>
+    </div>
+    <div class="hidden">
+      <p class="text-xl font-semibold">Linki</p>
+      <ul>
+        <li><a href="#">Projekty</a></li>
+        <li><a href="#">O mnie</a></li>
+        <li><a href="#">Kontakt</a></li>
+        <li><a href="#">Curriculum Vitae</a></li>
+      </ul>
+    </div>
+    <div class="hidden">
+      <p class="text-xl font-semibold">Linki</p>
+      <ul>
+        <li><a href="#">Polityka prywatności</a></li>
+        <li><a href="#">Ustawienia ciasteczek</a></li>
+        <li><a href="#">Mapa witryny</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fluid-container flex flex-col gap-4 container mx-auto fl-px-4/0 pb-4">
+    <div class="h-px w-full bg-blue-800" />
+    <div>&copy; 2026</div>
+  </div>
+  <div class="w-screen overflow-hidden fl-max-h-12/40">
+    <div class="flex w-[200vw] animate-marquee will-change-transform emblem-track">
+      <LogoEmblem class="emblem" />
+      <LogoEmblem class="emblem" />
+      <LogoEmblem class="emblem" />
+      <LogoEmblem class="emblem" />
+      <LogoEmblem class="emblem" />
+      <LogoEmblem class="emblem" />
+      <LogoEmblem class="emblem" />
+      <LogoEmblem class="emblem" />
+    </div>
+  </div>
 </footer>
+
+<style>
+  .emblem-track :global(svg.emblem) {
+    width: 25vw;
+    height: 25vw;
+    flex-shrink: 0;
+    display: block;
+  }
+</style>

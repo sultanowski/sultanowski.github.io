@@ -1,12 +1,530 @@
 ---
-import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
-import Welcome from "../components/Welcome.astro";
-import Layout from "../layouts/Layout.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import projects from "../data/projects.ts";
+
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/a11y";
+
+const phrases = {
+  verb: ['Tworzę', 'Projekuję', 'Wdrażam', 'Automatyzuję', 'Układam', 'Konfiguruję', 'Zwiększam', 'Buduję'],
+  what: ['aplikacje webowe', 'strony WWW', 'landing page', 'sklepy', 'procesy', 'CRM-y', 'lejki sprzedażowe', 'integracje', 'synchronizacje', 'SEO', 'AI'],
+  connector: ['które'],
+  why: [
+    { 
+      verb: 'pomagają',
+      rest: 'skalować biznes'
+    },
+    {
+      verb: 'zamieniają',
+      rest: 'ruch w klientów'
+    },
+    {
+      verb: 'zwiększają',
+      rest: 'wartość koszyka'
+    },
+    {
+      verb: 'uwalniają',
+      rest: 'Twój czas'
+    },
+    {
+      verb: 'generują',
+      rest: 'stałe zapytania',
+    },
+    { 
+      verb: 'usprawniają',
+      rest: 'obsługę klienta'
+    },
+    {
+      verb: 'porządkują',
+      rest: 'sprzedaż'
+    },
+    {
+      verb: 'porządkują',
+      rest: 'procesy'
+    },
+    {
+      verb: '',
+      rest: 'docierają do klientów'
+    }
+  ]
+};
+
+const scrollTrackHeight = `height: calc(100vh + ${(projects.length - 1) * 80}vh);`;
 ---
 
-<Layout>
-    <Navigation />
-    <Welcome />
-    <Footer />
-</Layout>
+<MainLayout>
+  <section id="hero-desktop" class="fluid-container hidden lg:block relative hero-desktop-scroll-track" style={scrollTrackHeight} aria-label="Sekcja Hero i wybrane projekty">
+    <div class="sticky top-0 h-screen w-full flex flex-col justify-between fl-pt-24/32 pb-12">
+      <div class="z-0 hero-heading-container">
+        <h1 class="fit-target [font-size:var(--fit-font-size,inherit)] font-semibold leading-none tracking-tight pointer-events-auto text-blue-800">
+          <span data-hero-heading="verbs" class="word-slot inline-block">{phrases.verb[1]}</span>{' '}
+          <span data-hero-heading="whats" class="word-slot inline-block text-blue-600">{phrases.what[0]}</span>
+          <span>{', '}</span><br />
+          <span data-hero-heading="connectors" class="word-slot inline-block">{phrases.connector[0]}</span>{' '}
+          <div data-hero-heading="whys" class="inline-block"><span class="word-slot">{phrases.why[0].verb}</span>{' '}<span class="word-slot text-blue-600">{phrases.why[0].rest}</span></div>
+          <span>{'.'}</span>
+        </h1>
+      </div>
+
+      <div class="flex justify-between items-end gap-12 w-full mb-[8rem]">
+        <div class="flex flex-col justify-end w-full max-w-200">
+          <div class="swiper hero-text-swiper w-full overflow-hidden" role="region" aria-roledescription="carousel" aria-label="Opisy projektów">
+            <div class="swiper-wrapper">
+              {projects.map((project) => (
+                <div class="swiper-slide">
+                  <div class="flex flex-col gap-4">
+                    <div class="flex items-center justify-between gap-4">
+                      <h2 class="fl-text-2xl/4xl font-semibold">{project.title}</h2>
+                      <div class="flex flex-wrap justify-end gap-2" aria-label={`Tagi dla ${project.title}`}>
+                        {project.tags.map((tag) => (
+                          <span class="font-mono px-2.5 py-1 text-xs font-medium bg-blue-600 text-white">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <p class="text-base/relaxed opacity-90">{project.description}</p>
+                    <p class="text-base/relaxed opacity-90" set:html={project.about} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4 w-full pt-8">
+            <button type="button" class="font-mono hero-prev-btn px-4 py-2 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors cursor-pointer text-sm font-medium" aria-label="Poprzedni projekt">
+              poprzedni
+            </button>
+            <div class="h-px flex-1 bg-blue-300/80" aria-hidden="true"></div>
+            <button type="button" class="font-mono hero-next-btn px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 transition-colors cursor-pointer text-sm font-medium" aria-label="Następny projekt">
+              następny
+            </button>
+          </div>
+        </div>
+
+        <div class="w-full max-w-[40rem] shrink-0 h-[25rem] relative">
+          <div class="swiper hero-image-swiper h-full w-full border-blue-200/50 bg-blue-50 !overflow-visible" role="region" aria-roledescription="carousel" aria-label="Ilustracje projektów">
+            <div class="swiper-wrapper">
+              {projects.map((project) => (
+                <div class="swiper-slide h-[25rem] w-full flex items-center justify-center bg-blue-100/50">
+                  <img src={project.img} alt={`Podgląd projektu ${project.title}`} class="w-full h-full object-cover" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-0 -left-[2.64rem] overflow-hidden fl-max-h-12/40 -fl-mt-12/40">
+          <div class="flex w-screen">
+            <div class="hero-blob flex-1 h-[25vw] aspect-square rounded-r-full bg-blue-600" />
+            <div class="hero-blob flex-1 h-[25vw] aspect-square rounded-r-full bg-blue-600" />
+            <div class="hero-blob flex-1 h-[25vw] aspect-square rounded-r-full bg-blue-600" />
+            <div class="hero-blob flex-1 h-[25vw] aspect-square rounded-r-full bg-blue-600" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hero-mobile" class="block lg:hidden relative pt-6 pb-0 fl-pt-24/32" aria-label="Sekcja Hero i wybrane projekty">
+    <div class="sticky top-26 md:top-24 z-0 hero-heading-container">
+      <h1 class="fit-target [font-size:var(--fit-font-size,inherit)] font-semibold leading-none tracking-tight pointer-events-auto text-blue-800">
+        <span class="word-slot inline-block">{phrases.verb[1]}</span>{' '}
+        <span class="word-slot inline-block text-blue-600">{phrases.what[0]}</span>
+        <span class="word-slot">{', '}</span><br />
+        <span class="word-slot inline-block">{phrases.connector[0]}</span>{' '}
+        <span class="word-slot inline-block">{phrases.why[0].rest}</span>{' '}
+        <span class="word-slot inline-block text-blue-600">{phrases.why[0].rest}</span>.
+      </h1>
+    </div>
+
+    <div class="relative z-10 hero-mobile-scroll-track" style={scrollTrackHeight}>
+      <div class="sticky top-12 md:top-20 flex flex-col justify-center min-h-[calc(100vh-1rem)] pb-8">
+        <div class="bg-gradient-to-b from-blue-50/0 via-blue-50/95 to-blue-50 pt-16 pb-4">
+          <p class="font-mono text-xs uppercase opacity-70 flex items-center gap-2">
+            <span>↓</span> sprawdź moje ostatnie projekty
+          </p>
+        </div>
+        <article class="bg-white flex flex-col border border-blue-200/60 overflow-hidden">
+          <div class="relative w-full aspect-4/3 bg-blue-100 overflow-hidden">
+            <div class="swiper hero-mobile-image-swiper w-full h-full" role="region" aria-roledescription="carousel" aria-label="Ilustracje projektów">
+              <div class="swiper-wrapper">
+                {projects.map((project) => (
+                  <div class="swiper-slide w-full h-full relative">
+                    <img src={project.img} alt={`Podgląd projektu ${project.title}`} class="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div class="swiper hero-mobile-tags-swiper absolute bottom-9 left-4 right-4 z-10 pointer-events-none" aria-hidden="true">
+              <div class="swiper-wrapper">
+                {projects.map((project) => (
+                  <div class="swiper-slide">
+                    <div class="flex flex-wrap gap-1.5">
+                      {project.tags.map((tag) => (
+                        <span class="font-mono px-2 py-0.5 text-xs font-medium bg-blue-600 text-white">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 flex flex-col gap-4">
+            <div class="swiper hero-mobile-text-swiper w-full overflow-hidden" role="region" aria-roledescription="carousel" aria-label="Opisy projektów">
+              <div class="swiper-wrapper">
+                {projects.map((project) => (
+                  <div class="swiper-slide">
+                    <div class="flex flex-col gap-4">
+                      <h2 class="text-2xl font-semibold">{project.title}</h2>
+                      <p class="text-sm/relaxed opacity-90">{project.description}</p>
+                      <p class="text-sm/relaxed opacity-90" set:html={project.about} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div class="flex items-center gap-6 pt-2">
+              <button type="button" class="font-mono hero-prev-btn-mobile px-3 py-1.5 border border-blue-600 text-blue-600 text-xs font-medium hover:bg-blue-600 hover:text-white transition-colors cursor-pointer" aria-label="Poprzedni projekt">
+                poprzedni
+              </button>
+              <div class="h-px flex-1 bg-blue-200" aria-hidden="true"></div>
+              <button type="button" class="font-mono hero-next-btn-mobile px-3 py-1.5 bg-blue-600 text-white text-xs font-medium hover:bg-blue-700 transition-colors cursor-pointer" aria-label="Następny projekt">
+                następny
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<script>
+  import Swiper from "swiper";
+  import { EffectFade, Keyboard, Navigation, A11y } from "swiper/modules";
+
+  import gsap from "gsap";
+  import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin"
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const animationSpeed = prefersReducedMotion ? 0 : 450;
+
+  function adjustTextToLines(element: HTMLElement, targetLines = 2, minPx = 24, maxPx = 160) {
+    if (!element || window.getComputedStyle(element).display === "none") return;
+    let low = minPx, high = maxPx, bestFit = minPx;
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
+      element.style.setProperty("--fit-font-size", `${mid}px`);
+      const lh = parseFloat(window.getComputedStyle(element).lineHeight) || mid * 1.1;
+      if (element.getBoundingClientRect().height <= lh * targetLines + 1.5) {
+        bestFit = mid; low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
+    element.style.setProperty("--fit-font-size", `${bestFit}px`);
+  }
+
+  const heroHeadings = document.querySelectorAll<HTMLElement>(".fit-target");
+  if (heroHeadings.length > 0) {
+    let resizeTimer: number;
+    const fitAll = () => heroHeadings.forEach((el) => adjustTextToLines(el));
+    new ResizeObserver(() => {
+      cancelAnimationFrame(resizeTimer);
+      resizeTimer = requestAnimationFrame(fitAll);
+    }).observe(document.body);
+    document.fonts.ready.then(fitAll);
+  }
+
+  function setButtonState(btn: HTMLButtonElement | null, disabled: boolean) {
+    if (!btn) return;
+    btn.setAttribute("aria-disabled", String(disabled));
+    btn.classList.toggle("opacity-40", disabled);
+    btn.classList.toggle("cursor-not-allowed", disabled);
+  }
+
+  function makeFadeSwiper(el: HTMLElement, a11yEnabled = true) {
+    return new Swiper(el, {
+      modules: [EffectFade, A11y],
+      effect: "fade",
+      fadeEffect: { crossFade: true },
+      allowTouchMove: false,
+      speed: animationSpeed,
+      a11y: { enabled: a11yEnabled },
+    });
+  }
+
+  function makeScrollTracker(
+    trackEl: HTMLElement,
+    getNumSlides: () => number,
+    onSlide: (i: number) => void,
+    stickyOffset = 0
+  ) {
+    let programmatic = false;
+
+    const handleScroll = () => {
+      if (programmatic) return;
+      const rect = trackEl.getBoundingClientRect();
+      const total = trackEl.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      const scrolled = -rect.top + stickyOffset;
+      if (scrolled < 0) { onSlide(0); return; }
+      const n = getNumSlides();
+      onSlide(Math.min(n - 1, Math.floor(Math.max(0, Math.min(1, scrolled / total)) * n)));
+    };
+
+    const scrollTo = (index: number) => {
+      const n = getNumSlides();
+      if (n <= 1) return;
+      const rect = trackEl.getBoundingClientRect();
+      const total = trackEl.offsetHeight - window.innerHeight;
+      const target = rect.top + window.scrollY + ((index + 0.5) / n) * total - stickyOffset;
+      programmatic = true;
+      window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
+      setTimeout(() => { programmatic = false; }, 500);
+    };
+
+    return { handleScroll, scrollTo };
+  }
+
+  const textSwiperEl = document.querySelector<HTMLElement>(".hero-text-swiper");
+  const imageSwiperEl = document.querySelector<HTMLElement>(".hero-image-swiper");
+  const desktopTrackEl = document.querySelector<HTMLElement>(".hero-desktop-scroll-track");
+
+  if (textSwiperEl && imageSwiperEl) {
+    const textSwiper = makeFadeSwiper(textSwiperEl);
+
+    const imageSwiper = new Swiper(imageSwiperEl, {
+      modules: [Keyboard, Navigation, A11y],
+      direction: "vertical",
+      slidesPerView: 1,
+      speed: animationSpeed,
+      grabCursor: true,
+      allowTouchMove: true,
+      keyboard: { enabled: true, onlyInViewport: true },
+      a11y: { enabled: true, prevSlideMessage: "Poprzedni projekt", nextSlideMessage: "Następny projekt" },
+    });
+
+    const prevBtn = document.querySelector<HTMLButtonElement>(".hero-prev-btn");
+    const nextBtn = document.querySelector<HTMLButtonElement>(".hero-next-btn");
+
+    const updateButtons = () => {
+      setButtonState(prevBtn, imageSwiper.activeIndex === 0);
+      setButtonState(nextBtn, imageSwiper.activeIndex >= imageSwiper.slides.length - 1);
+    };
+
+    const syncSlide = (i: number) => { imageSwiper.slideTo(i); textSwiper.slideTo(i); updateButtons(); };
+
+    imageSwiper.on("slideChange", () => { textSwiper.slideTo(imageSwiper.activeIndex); updateButtons(); });
+    updateButtons();
+
+    if (desktopTrackEl) {
+      const { handleScroll, scrollTo } = makeScrollTracker(
+        desktopTrackEl,
+        () => imageSwiper.slides.length,
+        (i) => { if (i !== imageSwiper.activeIndex) syncSlide(i); }
+      );
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      window.addEventListener("resize", handleScroll, { passive: true });
+      handleScroll();
+
+      // Blob border-radius scroll animation
+      const blobs = document.querySelectorAll<HTMLElement>(".hero-blob");
+      const updateBlobRadius = () => {
+        if (!desktopTrackEl) return;
+        const rect = desktopTrackEl.getBoundingClientRect();
+        const total = desktopTrackEl.offsetHeight - window.innerHeight;
+        if (total <= 0) return;
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / total));
+        // 50% = rounded-r-full, 0% = rounded-none
+        const radius = `${50 * (1 - progress)}%`;
+        blobs.forEach((blob) => {
+          blob.style.borderTopRightRadius = radius;
+          blob.style.borderBottomRightRadius = radius;
+        });
+      };
+      window.addEventListener("scroll", updateBlobRadius, { passive: true });
+      window.addEventListener("resize", updateBlobRadius, { passive: true });
+      updateBlobRadius();
+
+      prevBtn?.addEventListener("click", () => {
+        if (imageSwiper.activeIndex > 0) { const i = imageSwiper.activeIndex - 1; syncSlide(i); scrollTo(i); }
+      });
+      nextBtn?.addEventListener("click", () => {
+        if (imageSwiper.activeIndex < imageSwiper.slides.length - 1) { const i = imageSwiper.activeIndex + 1; syncSlide(i); scrollTo(i); }
+      });
+    }
+  }
+
+  const mobileImageSwiperEl = document.querySelector<HTMLElement>(".hero-mobile-image-swiper");
+  const mobileTextSwiperEl = document.querySelector<HTMLElement>(".hero-mobile-text-swiper");
+  const mobileTagsSwiperEl = document.querySelector<HTMLElement>(".hero-mobile-tags-swiper");
+  const mobileTrackEl = document.querySelector<HTMLElement>(".hero-mobile-scroll-track");
+
+  if (mobileImageSwiperEl && mobileTextSwiperEl) {
+    const mobileTextSwiper = makeFadeSwiper(mobileTextSwiperEl);
+    const mobileTagsSwiper = mobileTagsSwiperEl ? makeFadeSwiper(mobileTagsSwiperEl, false) : null;
+
+    const mobileImageSwiper = new Swiper(mobileImageSwiperEl, {
+      modules: [Keyboard, A11y],
+      direction: "vertical",
+      slidesPerView: 1,
+      speed: animationSpeed,
+      allowTouchMove: true,
+      keyboard: { enabled: true, onlyInViewport: true },
+      a11y: { enabled: true, prevSlideMessage: "Poprzedni projekt", nextSlideMessage: "Następny projekt" },
+    });
+
+    const prevBtnMobile = document.querySelector<HTMLButtonElement>(".hero-prev-btn-mobile");
+    const nextBtnMobile = document.querySelector<HTMLButtonElement>(".hero-next-btn-mobile");
+
+    const updateMobileButtons = () => {
+      setButtonState(prevBtnMobile, mobileImageSwiper.activeIndex === 0);
+      setButtonState(nextBtnMobile, mobileImageSwiper.activeIndex >= mobileImageSwiper.slides.length - 1);
+    };
+
+    const syncMobileSlide = (i: number) => {
+      mobileImageSwiper.slideTo(i);
+      mobileTextSwiper.slideTo(i);
+      mobileTagsSwiper?.slideTo(i);
+      updateMobileButtons();
+    };
+
+    mobileImageSwiper.on("slideChange", () => syncMobileSlide(mobileImageSwiper.activeIndex));
+    updateMobileButtons();
+
+    if (mobileTrackEl) {
+      const headingEl = document.querySelector<HTMLElement>(".hero-heading-container");
+
+      const updateHeadingOpacity = () => {
+        if (!headingEl || !mobileTrackEl) return;
+        if (window.innerWidth >= 1024) { headingEl.style.opacity = "1"; headingEl.style.pointerEvents = "auto"; return; }
+        const rect = mobileTrackEl.getBoundingClientRect();
+        const trackTop = rect.top + window.scrollY;
+        const pin = Math.max(1, trackTop - 80);
+        const half = pin * 0.5;
+        const scroll = window.scrollY;
+        const opacity = scroll < half ? 1 : scroll >= pin ? 0 : Math.max(0, 1 - (scroll - half) / half);
+        headingEl.style.opacity = String(opacity);
+        headingEl.style.pointerEvents = opacity > 0.1 ? "auto" : "none";
+      };
+
+      const { handleScroll, scrollTo } = makeScrollTracker(
+        mobileTrackEl,
+        () => mobileImageSwiper.slides.length,
+        (i) => { if (i !== mobileImageSwiper.activeIndex) syncMobileSlide(i); },
+        80
+      );
+
+      const onScroll = () => { updateHeadingOpacity(); handleScroll(); };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", updateHeadingOpacity, { passive: true });
+      updateHeadingOpacity();
+
+      prevBtnMobile?.addEventListener("click", () => {
+        if (mobileImageSwiper.activeIndex > 0) { const i = mobileImageSwiper.activeIndex - 1; syncMobileSlide(i); scrollTo(i); }
+      });
+      nextBtnMobile?.addEventListener("click", () => {
+        if (mobileImageSwiper.activeIndex < mobileImageSwiper.slides.length - 1) { const i = mobileImageSwiper.activeIndex + 1; syncMobileSlide(i); scrollTo(i); }
+      });
+    }
+  }
+
+  const gsapHeroAnimation = () => {
+    const verbs = document.querySelector<HTMLElement>('[data-hero-heading="verbs"]');
+    const whats = document.querySelector<HTMLElement>('[data-hero-heading="whats"]');
+    const connectors = document.querySelector<HTMLElement>('[data-hero-heading="connectors"]');
+    const whys = document.querySelector<HTMLElement>('[data-hero-heading="whys"]');
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        gsap.delayedCall(3.5, playNextScramble);
+      },
+    });
+
+    const settings = {
+      duration: .75,
+      scrambleText: {
+        text: targetPhrase.verb,
+        chars: chars,
+        speed: .5,
+        revealDelay: 0.1,
+      },
+      ease: 'power2.out',
+    }
+
+    tl.to(verbs, settings)
+      .to(whats, settings, '-=.5')
+      .to(connectors, settings, '-=.4')
+      .to(whys, settings, '-=.3')
+  }
+
+  gsapHeroAnimation;
+</script>
+
+<style>
+  .hero-image-swiper {
+    overflow: visible !important;
+  }
+
+  .hero-blob {
+    transition: border-radius 80ms linear;
+  }
+
+  .hero-text-swiper .swiper-wrapper,
+  .hero-mobile-text-swiper .swiper-wrapper,
+  .hero-mobile-tags-swiper .swiper-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .hero-text-swiper .swiper-slide,
+  .hero-mobile-text-swiper .swiper-slide,
+  .hero-mobile-tags-swiper .swiper-slide {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    width: 100% !important;
+    opacity: 0 !important;
+    filter: blur(12px);
+    transform: translateY(6px);
+    pointer-events: none;
+    transition:
+      opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+      filter 450ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hero-text-swiper .swiper-slide-active,
+  .hero-mobile-text-swiper .swiper-slide-active {
+    opacity: 1 !important;
+    filter: blur(0px);
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .hero-mobile-tags-swiper .swiper-slide-active {
+    opacity: 1 !important;
+    filter: blur(0px);
+    transform: translateY(0);
+    pointer-events: auto;
+    transition:
+      opacity 450ms cubic-bezier(0.16, 1, 0.3, 1) 120ms,
+      filter 450ms cubic-bezier(0.16, 1, 0.3, 1) 120ms,
+      transform 450ms cubic-bezier(0.16, 1, 0.3, 1) 120ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-text-swiper .swiper-slide,
+    .hero-mobile-text-swiper .swiper-slide,
+    .hero-mobile-tags-swiper .swiper-slide {
+      filter: none !important;
+      transform: none !important;
+      transition: opacity 0ms !important;
+    }
+  }
+</style>
