@@ -1,0 +1,45 @@
+---
+import "../styles/global.css";
+import Navigation from "../components/Navigation.astro";
+import "@fontsource-variable/inter-tight";
+import "@fontsource-variable/jetbrains-mono";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <!-- <meta name="generator" content={Astro.generator} /> -->
+        <title>Dariusz Sułtanowski — Design & Development</title>
+        
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-T5PM5V92');</script>
+        <!-- End Google Tag Manager -->
+    </head>
+    <body>
+        <Navigation />
+        <slot />
+    </body>
+</html>
+
+<style>
+    @reference '../styles/global.css';
+    html,
+    body {
+        @apply m-0 w-full h-full bg-blue-600;
+    }
+
+    body {
+        font-family: "Inter Tight Variable", sans-serif;
+    }
+
+    .font-mono {
+        font-family: "JetBrains Mono Variable", monospace !important;
+    }
+</style>
